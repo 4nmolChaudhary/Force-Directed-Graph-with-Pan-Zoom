@@ -1,25 +1,22 @@
-import React from 'react';
-import data from './data/data.json';
-import { ForceGraph } from "./components/forceGraph";
-import './App.css';
+import React from 'react'
+import data from './data/data.json'
+import { ForceGraph } from './components/forceGraph'
+import './App.css'
 
 function App() {
-  const nodeHoverTooltip = React.useCallback((node) => {
-    return `<div>     
+	const nodeHoverTooltip = React.useCallback(node => {
+		return `<div>     
       <b>${node.name}</b>
-    </div>`;
-  }, []);
+    </div>`
+	}, [])
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        Force Graph Example
-      </header>
-      <section className="Main">
-        <ForceGraph linksData={data.links} nodesData={data.nodes} nodeHoverTooltip={nodeHoverTooltip} />
-      </section>
-    </div>
-  );
+	return (
+		<div className="App">
+			<section className="Main">
+				<ForceGraph linksData={data.links} nodesData={data.nodes} groupsData={data.groups} nodeHoverTooltip={nodeHoverTooltip} />
+			</section>
+		</div>
+	)
 }
 
-export default App;
+export default App
