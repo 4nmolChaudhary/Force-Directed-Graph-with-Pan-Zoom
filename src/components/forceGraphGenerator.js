@@ -89,6 +89,7 @@ export function runForceGraph(container, linksData, nodesData, groupsData, nodeH
 		.force('charge', d3.forceManyBody().strength(-150))
 		.force('x', d3.forceX())
 		.force('y', d3.forceY())
+		.force('link', d3.forceLink().distance(54))
 
 	const svg = d3
 		.select(container)
