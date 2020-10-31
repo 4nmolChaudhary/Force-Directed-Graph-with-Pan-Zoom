@@ -9,7 +9,7 @@
 		{ "id": 5, "name": "Node 5", "group": "alpha" },
 		{ "id": 6, "name": "Node 6", "group": "alpha" },
 
-		{ "id": 7, "name": "Node 7", "group": "beta" },
+		{ "id": 7, "name": "Node 7" },
 		{ "id": 8, "name": "Node 8" },
 		{ "id": 9, "name": "Node 9" },
 		{ "id": 10, "name": "Node 10" },
