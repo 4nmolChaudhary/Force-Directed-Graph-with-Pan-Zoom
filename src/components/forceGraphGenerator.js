@@ -5,7 +5,7 @@ import styles from './forceGraph.module.css'
 export function runForceGraph(container, linksData, nodesData, nodeHoverTooltip) {
 	const links = linksData.map(d => Object.assign({}, d))
 	const nodes = nodesData.map(d => Object.assign({}, d))
-
+	//console.log('nodes data', nodes)
 	//setting the width/height of svg container
 	const height = document.querySelector('.Main').clientHeight / 2
 	const width = document.querySelector('.Main').clientWidth / 2
@@ -209,7 +209,18 @@ export function runForceGraph(container, linksData, nodesData, nodeHoverTooltip)
 	// add interaction to the groups
 	groups.selectAll('.path_placeholder').call(d3.drag().on('start', group_dragstarted).on('drag', group_dragged).on('end', group_dragended))
 
-	simulation.on('tick', () => {
+	simulation.on('tick', d => {
+		// var k = 0.5 * e.alpha
+		const lev2 = []
+		//display nodes as tree by varying Y cordinate
+		nodes.forEach(d => (d.y += (d.level * 100 - d.y) * 0.1))
+		nodes.forEach(d => {
+			if (d.level === 2) {
+				lev2.push(d)
+			}
+		})
+
+		//console.log(lev2.sort((a, b) => a.x - b.x))
 		//update link positions
 		link
 			.attr('x1', d => d.source.x)
