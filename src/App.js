@@ -5,12 +5,6 @@ import './App.css'
 import axios from 'axios'
 
 function App() {
-	const nodeHoverTooltip = React.useCallback(node => {
-		return `<div>     
-      <b>${node.name}</b>
-    </div>`
-	}, [])
-
 	const [data, setData] = useState()
 	useEffect(() => {
 		;(async () => {
@@ -21,7 +15,7 @@ function App() {
 
 	return (
 		<div className="App">
-			<section className="Main">{data && <ForceGraph linksData={data?.links} nodesData={data?.nodes} nodeHoverTooltip={nodeHoverTooltip} />}</section>
+			<section className="Main">{data && <ForceGraph linksData={data?.links} nodesData={data?.nodes} />}</section>
 		</div>
 	)
 }
