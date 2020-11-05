@@ -5,8 +5,12 @@ import { Tooltip } from './Tooltip'
 
 export function runForceGraph(container, linksData, nodesData) {
 	const links = linksData.map(d => Object.assign({}, d))
-	const nodes = nodesData.map(d => Object.assign({}, d))
 
+	const nodes = nodesData.map(d => Object.assign({}, d))
+	nodes.forEach(node => {
+		if (node.id === 21 || node.id === 18 || node.id === 22) node.group = 'alpha'
+		//if (node.id === 19 || node.id === 2 || node.id === 23) node.group = 'bravo'
+	})
 	//setting the width/height of svg container
 	const height = document.querySelector('.Main').clientHeight / 2
 	const width = document.querySelector('.Main').clientWidth / 2
@@ -19,7 +23,7 @@ export function runForceGraph(container, linksData, nodesData) {
 		.line()
 		.x(d => d[0])
 		.y(d => d[1])
-		.curve(d3.curveLinearClosed)
+		.curve(d3.curveCatmullRomClosed)
 	//remove the hightlight when mouse moves out
 	const exitHighlight = () => {
 		svg.style('cursor', 'move')
@@ -67,7 +71,7 @@ export function runForceGraph(container, linksData, nodesData) {
 		.force('charge', d3.forceManyBody().strength(-150))
 		.force('x', d3.forceX([width / 2]).strength(0.2))
 		.force('y', d3.forceY([height / 2]).strength(0.2))
-		.force('center', d3.forceCenter(250, 250))
+		.force('center', d3.forceCenter(width / 2, 300))
 
 	const svg = d3
 		.select(container)
@@ -176,11 +180,11 @@ export function runForceGraph(container, linksData, nodesData) {
 		.attr('fill', d => color(d))
 		.attr('opacity', 0.1)
 		.attr('class', 'group_nodes')
-		.style('stroke-width', 3)
+		//.style('stroke-width', 1)
 		.style('stroke-linejoin', 'round')
 		.style('fill-opacity', 0.1)
 
-	//paths.transition().duration(2000).attr('opacity', 1)
+	paths.transition().duration(2000).attr('opacity', 1)
 	// add interaction to the groups
 	groups.selectAll('.path_placeholder').call(d3.drag().on('start', group_dragstarted).on('drag', group_dragged).on('end', group_dragended))
 
@@ -242,7 +246,7 @@ export function runForceGraph(container, linksData, nodesData) {
 			var centroid
 			var path = paths
 				.filter(d => d === groupId)
-				.attr('transform', 'scale(1) translate(0,0)')
+				.attr('transform', 'scale(1.4) translate(0,0)')
 				.attr('d', function (d) {
 					const polygon = polygonGenerator(d)
 					centroid = d3.polygonCentroid(polygon)
@@ -259,7 +263,7 @@ export function runForceGraph(container, linksData, nodesData) {
 	// drag groups
 	function group_dragstarted(groupId) {
 		if (!d3.event.active) simulation.alphaTarget(0.3).restart()
-		d3.select(this).select('path').style('stroke-width', 3)
+		//d3.select(this).select('path').style('stroke-width', 1)
 	}
 
 	function group_dragged(groupId) {
@@ -273,7 +277,7 @@ export function runForceGraph(container, linksData, nodesData) {
 
 	function group_dragended(groupId) {
 		if (!d3.event.active) simulation.alphaTarget(0.3).restart()
-		d3.select(this).select('path').style('stroke-width', 3)
+		//d3.select(this).select('path').style('stroke-width', 1)
 	}
 
 	return {
