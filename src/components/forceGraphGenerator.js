@@ -52,7 +52,6 @@ export function runForceGraph(container, linksData, nodesData) {
 
 	const addTooltip = d => {
 		d3.select('.tooltip').transition().duration(200).style('opacity', 1)
-		//console.log(d)
 		div.html(Tooltip(d))
 			.style('left', `${d3.event.pageX}px`)
 			.style('top', `${d3.event.pageY - 28}px`)
@@ -189,16 +188,17 @@ export function runForceGraph(container, linksData, nodesData) {
 	groups.selectAll('.path_placeholder').call(d3.drag().on('start', group_dragstarted).on('drag', group_dragged).on('end', group_dragended))
 
 	simulation.on('tick', d => {
-		// display hierarchy in graph to make it look like a tree
-		// const lev2 = []
-		// //display nodes as tree by varying Y cordinate
-		// nodes.forEach(d => (d.y += (d.level * 100 - d.y) * 0.1))
-		// nodes.forEach(d => {
-		// 	if (d.level === 2) {
-		// 		lev2.push(d)
-		// 	}
-		// })
-
+		/**
+		 * TODO : display hierarchy in graph to make it look like a tree
+		 * * Display nodes as tree by varying Y cordinate
+		 * const lev2 = []
+		 * nodes.forEach(d => (d.y += (d.level * 100 - d.y) * 0.1))
+			nodes.forEach(d => {
+				if (d.level === 2) {
+					lev2.push(d)
+				}
+			})
+		 */
 		//update link positions
 		link
 			.attr('x1', d => d.source.x)
